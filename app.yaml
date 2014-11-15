@@ -6,7 +6,7 @@ threadsafe: true
 
 handlers:
 - url: /.*
-  script: helloworld.application
+  script: cloudApp.application
 
 libraries:                                                                      
 - name: jinja2                                                                  
