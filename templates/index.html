@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title></title>
+		<title>
+			Cloud App
+		</title>
 		<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
 	</head>
 	<body>
@@ -13,27 +15,48 @@
 				</div>
 
 		      	<ul class="nav navbar-nav navbar-right">
-		        	<li><a href="#myModal" data-toggle="modal">Sign In</a></li>
+		        	<li><a data-target="#myModal" data-toggle="modal">Sign In</a></li>
 		        	<li><a href="#">Register</a></li>
 		      	</ul>
 			</div>
 		</nav>
     	
-    	<div class="modal hide" id="myModal">
-        	<div class="modal-header">
-            	<button type="button" class="close" data-dismiss="modal">x</button>
-            	<h3>Login to MyWebsite.com</h3>
-          	</div>
+    	<!-- MODAL HERE -->
+
+
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-hidden="true">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		    
+		    <div class="modal-header">
+        		<button type="button" class="close" data-dismiss="modal">
+	        		<span aria-hidden="true">&times;</span>
+	        		<span class="sr-only">Close</span>
+        		</button>
+        		<h4 class="modal-title" id="exampleModalLabel">Login</h4>
+      		</div>
+          	
           	<div class="modal-body">
-            	<form method="post" action='' name="login_form">
-              		<p><input type="text" class="span3" name="eid" id="email" placeholder="Email"></p>
-              		<p><input type="password" class="span3" name="passwd" placeholder="Password"></p>
-              		<p><button type="submit" class="btn btn-primary">Sign in</button>
-                		<a href="#">Forgot Password?</a>
-              		</p>
+            	<form role="form" method="post" action='' name="login_form">
+	            	<div class="form-group">
+			        	<label for="recipient-name" class="control-label">Email Id:</label>
+			        	<input type="text" class="form-control" name="eid" id="email" placeholder="Email">
+			        </div>
+
+			        <div class="form-group">
+			        	<label for="recipient-name" class="control-label">Password:</label>
+			        	<input type="password" class="form-control" name="passwd" placeholder="Password">
+			        </div>
             	</form>
           	</div>
-        </div>
+		    
+		    </div>
+		  </div>
+		</div>
+
+
+
+
     </body>
     <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
