@@ -5,8 +5,12 @@ api_version: 1
 threadsafe: true
 
 handlers:
+- url: /static
+  static_dir: static
+
 - url: /.*
   script: cloudApp.application
+  script: cloudApp.app
 
 libraries:                                                                      
 - name: jinja2                                                                  
