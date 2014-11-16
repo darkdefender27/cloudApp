@@ -1,40 +1,6 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<title></title>
-		<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
-	</head>
-	<body>
-		
-		<nav class="navbar navbar-default navbar-static-top" role="navigation">
-			<div class="container">
-				<div class="navbar-header">
-					<a class="navbar-brand" href="#">Advanced Tic Tac toe</a>
-				</div>
+{% extends "base.html"%}
 
-		      	<ul class="nav navbar-nav navbar-right">
-		        	<li><a href="#myModal" data-toggle="modal">Sign In</a></li>
-		        	<li><a href="#">Register</a></li>
-		      	</ul>
-			</div>
-		</nav>
-    	
-    	<div class="modal hide" id="myModal">
-        	<div class="modal-header">
-            	<button type="button" class="close" data-dismiss="modal">x</button>
-            	<h3>Login to MyWebsite.com</h3>
-          	</div>
-          	<div class="modal-body">
-            	<form method="post" action='' name="login_form">
-              		<p><input type="text" class="span3" name="eid" id="email" placeholder="Email"></p>
-              		<p><input type="password" class="span3" name="passwd" placeholder="Password"></p>
-              		<p><button type="submit" class="btn btn-primary">Sign in</button>
-                		<a href="#">Forgot Password?</a>
-              		</p>
-            	</form>
-          	</div>
-        </div>
-    </body>
-    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
-</html>
+{% block content %}
+    <h1>This is the index Page</h1>
+    <h3>Please put all the game code here</h3>
+{% endblock %}
