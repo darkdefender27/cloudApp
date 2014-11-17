@@ -9,7 +9,6 @@ handlers:
   static_dir: static
 
 - url: /.*
-  script: cloudApp.application
   script: cloudApp.app
 
 libraries:                                                                      
