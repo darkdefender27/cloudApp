@@ -3,26 +3,33 @@ import re
 import random
 import hashlib
 import hmac
-from string import letters
 
 import webapp2
 import jinja2
 
+from google.appengine.api import channel
+from google.appengine.api import users
+
+from string import letters
+
 from google.appengine.ext import db
 
-template_dir = os.path.join(os.path.dirname(__file__), 'templates')
-jinja_env = jinja2.Environment(loader = jinja2.FileSystemLoader(template_dir),
-								autoescape = True)
+template_dir = os.path.join(os.path.dirname(__file__), '../templates')
+jinja_env = jinja2.Environment(loader=jinja2.FileSystemLoader(template_dir),
+                               autoescape=True)
 
 secret = 'thisIstheSalt'
+
 
 def render_str(template, **params):
     t = jinja_env.get_template(template)
     return t.render(params)
 
+
 # These are the hashing functions
 def make_secure_val(val):
     return '%s|%s' % (val, hmac.new(secret, val).hexdigest())
+
 
 def check_secure_val(secure_val):
     val = secure_val.split('|')[0]
@@ -200,13 +207,67 @@ class Logout(AppHandler):
 
 #The Game Stuff
 
+class Game(db.Model):
+    """All the data we store for a game"""
+
+    userX = db.UserProperty()
+    userO = db.UserProperty()
+    board = db.StringProperty()
+    moveX = db.BooleanProperty()
+    winner = db.StringProperty()
+    winning_board = db.StringProperty()
+
+
 class MainPage(AppHandler):
-	def get(self):
-		self.render("index.html")
+    user = users.get_current_user()
+    if not user:
+        self.redirect('/login')
+
+    game_key = self.request.get('gamekey')
+    game = None
+
+    if not game_key:
+        # If no game was specified, create a new game and make this user
+        # the 'X' player.
+        game_key = user.user_id()
+        game = Game(key_name = game_key,
+                    userX = user,
+                    moveX = True,
+                    board = '         ')
+        game.put()
+
+    else:
+        game = Game.get_by_key_name(game_key)
+        if not game.userO and game.userX != user:
+            # If this game has no 'O' player, then make the current user
+            # the 'O' player.
+            game.userO = user
+            game.put()
+
+    token = channel.create_channel(user.user_id() + game_key)
+
+    template_values = {'token': token,
+                       'me': user.user_id(),
+                       'game_key': game_key
+    }
+
+    template = jinja_environment.get_template('index.html')
+    self.response.out.write(template.render(template_values))
+
+
+#def get(self):
+#	self.render("index.html")
+
+
+
+
+
+jinja_environment = jinja2.Environment(
+    loader=jinja2.FileSystemLoader(os.path.dirname(__file__)))
 
 app=webapp2.WSGIApplication([('/',MainPage),
                              ('/register',Register),
                              ('/login',Login),
                              ('/logout', Logout)
-                             ],
-                             debug=True)
+                            ],
+                            debug=True)

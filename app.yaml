@@ -9,7 +9,7 @@ handlers:
   static_dir: static
 
 - url: /.*
-  script: cloudApp.app
+  script: tic_Game.application
 
 libraries:                                                                      
 - name: jinja2                                                                  
