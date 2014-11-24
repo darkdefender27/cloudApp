@@ -175,6 +175,7 @@ class MainPage(webapp.RequestHandler):
             if game:
                 token = channel.create_channel(user.user_id() + game_key)
                 template_values = {'token': token,
+                                   'username': user,
                                    'me': user.user_id(),
                                    'game_key': game_key,
                                    'game_link': game_link,
