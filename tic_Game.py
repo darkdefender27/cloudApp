@@ -11,6 +11,19 @@ from google.appengine.ext import db
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp import template
 from google.appengine.ext.webapp.util import run_wsgi_app
+import jinja2
+import stack
+
+
+UserStack = []
+
+template_dir = os.path.join(os.path.dirname(__file__), 'templates')
+jinja_env = jinja2.Environment(loader=jinja2.FileSystemLoader(template_dir), autoescape=True)
+
+
+def render_str(template_file, **params):
+    t = jinja_env.get_template(template_file)
+    return t.render(params)
 
 
 class Game(db.Model):
@@ -121,30 +134,43 @@ class OpenedPage(webapp.RequestHandler):
         GameUpdater(game).send_update()
 
 
+class IndexPage(webapp.RequestHandler):
+    def get(self):
+        template_values = {}
+        #path = env.get_template('index.html')
+        self.response.out.write(render_str('index.html'))
+        #self.response.out.write(template.render('index.html', template_values))
+        #self.redirect(users.create_login_url(self.request.uri))
+
+
 class MainPage(webapp.RequestHandler):
     """The main UI page, renders the 'index.html' template."""
 
     def get(self):
         """Renders the main page. When this page is shown, we create a new
         channel to push asynchronous updates to the client."""
+
         user = users.get_current_user()
-        game_key = self.request.get('g')
+        #game_key = self.request.get('g')
         game = None
         if user:
-            if not game_key:
+            #if not game_key:
+            if not UserStack:
                 game_key = user.user_id()
                 game = Game(key_name = game_key,
                             userX = user,
                             moveX = True,
                             board = '         ')
                 game.put()
+                UserStack.append(game_key)
             else:
+                game_key = UserStack.pop()
                 game = Game.get_by_key_name(game_key)
                 if not game.userO:
                     game.userO = user
                     game.put()
 
-            game_link = 'http://localhost:8080/?g=' + game_key
+            game_link = 'http://localhost:8080/game?g=' + game_key
 
             if game:
                 token = channel.create_channel(user.user_id() + game_key)
@@ -163,7 +189,9 @@ class MainPage(webapp.RequestHandler):
 
 
 application = webapp.WSGIApplication([
-                                         ('/', MainPage),
+                                         ('/', IndexPage),
+                                         ('/game', MainPage),
+                                         ('/login', MainPage),
                                          ('/opened', OpenedPage),
                                          ('/move', MovePage)], debug=True)
 
