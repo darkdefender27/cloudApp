@@ -21,6 +21,13 @@ template_dir = os.path.join(os.path.dirname(__file__), 'templates')
 jinja_env = jinja2.Environment(loader=jinja2.FileSystemLoader(template_dir), autoescape=True)
 
 
+def chunks(l, n):
+    """ Yield successive n-sized chunks from l.
+        """
+    for i in xrange(0, len(l), n):
+        yield l[i:i + n]
+
+
 def render_str(template_file, **params):
     t = jinja_env.get_template(template_file)
     return t.render(params)
@@ -34,6 +41,7 @@ class Game(db.Model):
     moveX = db.BooleanProperty()
     winner = db.StringProperty()
     winning_board = db.StringProperty()
+    big_win = db.StringProperty()
 
 
 class Wins():
@@ -46,7 +54,7 @@ class Wins():
                       'X...X...X',
                       '..X.X.X..']
 
-    o_win_patterns = map(lambda s: s.replace('X','O'), x_win_patterns)
+    o_win_patterns = map(lambda s: s.replace('X', 'O'), x_win_patterns)
 
     x_wins = map(lambda s: re.compile(s), x_win_patterns)
     o_wins = map(lambda s: re.compile(s), o_win_patterns)
@@ -79,16 +87,35 @@ class GameUpdater():
         if self.game.moveX:
             # O just moved, check for O wins
             wins = Wins().o_wins
+            game_winner = 'O'
             potential_winner = self.game.userO.user_id()
         else:
             # X just moved, check for X wins
             wins = Wins().x_wins
+            game_winner = 'X'
             potential_winner = self.game.userX.user_id()
 
+        new_board = list(chunks(self.game.board, 9))
+        ii = 0
+        for bb in new_board:
+            for win in wins:
+                if win.match(bb):
+                    #self.game.winner = potential_winner
+                    self.game.winning_board = win.pattern
+                    #return
+                    self.game.big_win = self.game.big_win[:ii] + game_winner + self.game.big_win[ii+1:]
+                    #self.game.big_win = self.game.big_win[ii:ii+1].replace(' ', game_winner)
+            ii = ii + 1
+
+        print "PAY ATTENTION BELOW::::"
+        print self.game.big_win
+
         for win in wins:
-            if win.match(self.game.board):
+
+            if win.match(self.game.big_win):
+                print "PAY ATTENTION BELOW::::"
+                print self.game.big_win
                 self.game.winner = potential_winner
-                self.game.winning_board = win.pattern
                 return
 
     def make_move(self, position, user):
@@ -119,7 +146,6 @@ class GameFromRequest():
 
 
 class MovePage(webapp.RequestHandler):
-
     def post(self):
         game = GameFromRequest(self.request).get_game()
         user = users.get_current_user()
@@ -154,13 +180,13 @@ class MainPage(webapp.RequestHandler):
         #game_key = self.request.get('g')
         game = None
         if user:
-            #if not game_key:
             if not UserStack:
                 game_key = user.user_id()
-                game = Game(key_name = game_key,
-                            userX = user,
-                            moveX = True,
-                            board = '         ')
+                game = Game(key_name=game_key,
+                            userX=user,
+                            moveX=True,
+                            board='                                                                                 ',
+                            big_win='         ')
                 game.put()
                 UserStack.append(game_key)
             else:
@@ -175,7 +201,6 @@ class MainPage(webapp.RequestHandler):
             if game:
                 token = channel.create_channel(user.user_id() + game_key)
                 template_values = {'token': token,
-                                   'username': user,
                                    'me': user.user_id(),
                                    'game_key': game_key,
                                    'game_link': game_link,
@@ -199,6 +224,7 @@ application = webapp.WSGIApplication([
 
 def main():
     run_wsgi_app(application)
+
 
 if __name__ == "__main__":
     main()

@@ -11,7 +11,9 @@
           height: 152px;
           margin: 20px auto;
         }
-       
+        .border-class {
+            border-right: 2px solid #000000;
+        }
         #display-area {
           text-align: center;
         }
@@ -19,7 +21,7 @@
         #this-game {
           font-size: 9pt;
         }
-       
+
         #winner {
         }
        
@@ -73,17 +75,22 @@
         div.b {
           border-top: 1pt solid black;
         }
+
+          .cell-padding{
+              padding-right: 20px;
+              padding-left: 20px;
+          }
       </style>
   </head>
   <body>
 
-    <div id='display-area'>
+    <div id='display-area' align="center">
       <h2>Channel-based Tic Tac Toe</h2>
       <div id='other-player' style='display:none'>
         Waiting for another player to join.<br>
         <!--
         Send them this link to play:<br>
-        <div id='game-link'><a href='{{ game_link }}'>{{ game_link }}</a></div>
+        <div id='game-link'><a href='Game_link}}'>Game_link}]</a></div>
         -->
       </div>
       <div id='your-move' style='display:none'>
@@ -93,22 +100,147 @@
         Waiting for other player to move...
       </div>
       <div id='you-won'>
-        {{ username }} won this game! :)
+        You won this game! :)
       </div>
       <div id='you-lost'>
-        {{ username }} lost this game! :(
+        You lost this game! :(
       </div>
-      <div id='board'>
-        <div class='t l cell'><table><tr><td id='0'></td></tr></td></table></div>
-        <div class='t c cell'><table><tr><td id='1'></td></tr></td></table></div>
-        <div class='t r cell'><table><tr><td id='2'></td></tr></td></table></div>
-        <div class='m l cell'><table><tr><td id='3'></td></tr></td></table></div>
-        <div class='m c cell'><table><tr><td id='4'></td></tr></td></table></div>
-        <div class='m r cell'><table><tr><td id='5'></td></tr></td></table></div>
-        <div class='b l cell'><table><tr><td id='6'></td></tr></td></table></div>
-        <div class='b c cell'><table><tr><td id='7'></td></tr></td></table></div>
-        <div class='b r cell'><table><tr><td id='8'></td></tr></td></table></div>
-      </div>
+
+       <div align="center">
+        <table>
+            <tr style="border-bottom: 2px solid black;">
+                <td class="border-class cell-padding">
+                    <div id='board'>
+                    <div class='t l cell'><table><tr><td id='0'></td></tr></table></div>
+                    <div class='t c cell'><table><tr><td id='1'></td></tr></table></div>
+                    <div class='t r cell'><table><tr><td id='2'></td></tr></table></div>
+                    <div class='m l cell'><table><tr><td id='3'></td></tr></table></div>
+                    <div class='m c cell'><table><tr><td id='4'></td></tr></table></div>
+                    <div class='m r cell'><table><tr><td id='5'></td></tr></table></div>
+                    <div class='b l cell'><table><tr><td id='6'></td></tr></table></div>
+                    <div class='b c cell'><table><tr><td id='7'></td></tr></table></div>
+                    <div class='b r cell'><table><tr><td id='8'></td></tr></table></div>
+                    </div>
+                </td>
+
+                <td class="border-class cell-padding">
+                    <div id='board'>
+                    <div class='t l cell'><table><tr><td id='9'></td></tr></table></div>
+                    <div class='t c cell'><table><tr><td id='10'></td></tr></table></div>
+                    <div class='t r cell'><table><tr><td id='11'></td></tr></table></div>
+                    <div class='m l cell'><table><tr><td id='12'></td></tr></table></div>
+                    <div class='m c cell'><table><tr><td id='13'></td></tr></table></div>
+                    <div class='m r cell'><table><tr><td id='14'></td></tr></table></div>
+                    <div class='b l cell'><table><tr><td id='15'></td></tr></table></div>
+                    <div class='b c cell'><table><tr><td id='16'></td></tr></table></div>
+                    <div class='b r cell'><table><tr><td id='17'></td></tr></table></div>
+                    </div>
+                </td>
+
+                <td class="cell-padding">
+                    <div id='board'>
+                    <div class='t l cell'><table><tr><td id='18'></td></tr></table></div>
+                    <div class='t c cell'><table><tr><td id='19'></td></tr></table></div>
+                    <div class='t r cell'><table><tr><td id='20'></td></tr></table></div>
+                    <div class='m l cell'><table><tr><td id='21'></td></tr></table></div>
+                    <div class='m c cell'><table><tr><td id='22'></td></tr></table></div>
+                    <div class='m r cell'><table><tr><td id='23'></td></tr></table></div>
+                    <div class='b l cell'><table><tr><td id='24'></td></tr></table></div>
+                    <div class='b c cell'><table><tr><td id='25'></td></tr></table></div>
+                    <div class='b r cell'><table><tr><td id='26'></td></tr></table></div>
+                    </div>
+                </td>
+            </tr>
+
+            <tr style="border-bottom: 2px solid black;">
+                <td class="border-class cell-padding">
+                    <div id='board'>
+                    <div class='t l cell'><table><tr><td id='27'></td></tr></table></div>
+                    <div class='t c cell'><table><tr><td id='28'></td></tr></table></div>
+                    <div class='t r cell'><table><tr><td id='29'></td></tr></table></div>
+                    <div class='m l cell'><table><tr><td id='30'></td></tr></table></div>
+                    <div class='m c cell'><table><tr><td id='31'></td></tr></table></div>
+                    <div class='m r cell'><table><tr><td id='32'></td></tr></table></div>
+                    <div class='b l cell'><table><tr><td id='33'></td></tr></table></div>
+                    <div class='b c cell'><table><tr><td id='34'></td></tr></table></div>
+                    <div class='b r cell'><table><tr><td id='35'></td></tr></table></div>
+                    </div>
+                </td>
+
+                <td class="border-class cell-padding">
+                    <div id='board'>
+                    <div class='t l cell'><table><tr><td id='36'></td></tr></table></div>
+                    <div class='t c cell'><table><tr><td id='37'></td></tr></table></div>
+                    <div class='t r cell'><table><tr><td id='38'></td></tr></table></div>
+                    <div class='m l cell'><table><tr><td id='39'></td></tr></table></div>
+                    <div class='m c cell'><table><tr><td id='40'></td></tr></table></div>
+                    <div class='m r cell'><table><tr><td id='41'></td></tr></table></div>
+                    <div class='b l cell'><table><tr><td id='42'></td></tr></table></div>
+                    <div class='b c cell'><table><tr><td id='43'></td></tr></table></div>
+                    <div class='b r cell'><table><tr><td id='44'></td></tr></table></div>
+                    </div>
+                </td>
+
+                <td class="cell-padding">
+                    <div id='board'>
+                    <div class='t l cell'><table><tr><td id='45'></td></tr></table></div>
+                    <div class='t c cell'><table><tr><td id='46'></td></tr></table></div>
+                    <div class='t r cell'><table><tr><td id='47'></td></tr></table></div>
+                    <div class='m l cell'><table><tr><td id='48'></td></tr></table></div>
+                    <div class='m c cell'><table><tr><td id='49'></td></tr></table></div>
+                    <div class='m r cell'><table><tr><td id='50'></td></tr></table></div>
+                    <div class='b l cell'><table><tr><td id='51'></td></tr></table></div>
+                    <div class='b c cell'><table><tr><td id='52'></td></tr></table></div>
+                    <div class='b r cell'><table><tr><td id='53'></td></tr></table></div>
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="border-class cell-padding">
+                    <div id='board'>
+                    <div class='t l cell'><table><tr><td id='54'></td></tr></table></div>
+                    <div class='t c cell'><table><tr><td id='55'></td></tr></table></div>
+                    <div class='t r cell'><table><tr><td id='56'></td></tr></table></div>
+                    <div class='m l cell'><table><tr><td id='57'></td></tr></table></div>
+                    <div class='m c cell'><table><tr><td id='58'></td></tr></table></div>
+                    <div class='m r cell'><table><tr><td id='59'></td></tr></table></div>
+                    <div class='b l cell'><table><tr><td id='60'></td></tr></table></div>
+                    <div class='b c cell'><table><tr><td id='61'></td></tr></table></div>
+                    <div class='b r cell'><table><tr><td id='62'></td></tr></table></div>
+                    </div>
+                </td>
+
+                <td class="border-class cell-padding">
+                    <div id='board'>
+                    <div class='t l cell'><table><tr><td id='63'></td></tr></table></div>
+                    <div class='t c cell'><table><tr><td id='64'></td></tr></table></div>
+                    <div class='t r cell'><table><tr><td id='65'></td></tr></table></div>
+                    <div class='m l cell'><table><tr><td id='66'></td></tr></table></div>
+                    <div class='m c cell'><table><tr><td id='67'></td></tr></table></div>
+                    <div class='m r cell'><table><tr><td id='68'></td></tr></table></div>
+                    <div class='b l cell'><table><tr><td id='69'></td></tr></table></div>
+                    <div class='b c cell'><table><tr><td id='70'></td></tr></table></div>
+                    <div class='b r cell'><table><tr><td id='71'></td></tr></table></div>
+                    </div>
+                </td>
+
+                <td class="cell-padding">
+                    <div id='board'>
+                    <div class='t l cell'><table><tr><td id='72'></td></tr></table></div>
+                    <div class='t c cell'><table><tr><td id='73'></td></tr></table></div>
+                    <div class='t r cell'><table><tr><td id='74'></td></tr></table></div>
+                    <div class='m l cell'><table><tr><td id='75'></td></tr></table></div>
+                    <div class='m c cell'><table><tr><td id='76'></td></tr></table></div>
+                    <div class='m r cell'><table><tr><td id='77'></td></tr></table></div>
+                    <div class='b l cell'><table><tr><td id='78'></td></tr></table></div>
+                    <div class='b c cell'><table><tr><td id='79'></td></tr></table></div>
+                    <div class='b r cell'><table><tr><td id='80'></td></tr></table></div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        </div>
 
       <!-- div id='this-game' float='top'>
         Quick link to this game: <span id='this-game-link'><a href='Game_link'>Game_link</a></span>
@@ -122,21 +254,21 @@
       };
 
       updateGame = function() {
-        for (i = 0; i < 9; i++) {
-          var square = document.getElementById(i);
-          square.innerHTML = state.board[i];
-          if (state.winner != '' && state.winningBoard != '') {
-            if (state.winningBoard[i] == state.board[i]) {
-              if (state.winner == state.me) {
-                square.style.background = "green";
-              } else {
-                square.style.background = "red";
+            for (i = 0; i < 81; i++) {
+              var square = document.getElementById(i);
+              square.innerHTML = state.board[i];
+              if (state.winner != '' && state.winningBoard != '') {
+                if (state.winningBoard[i] == state.board[i]) {
+                  if (state.winner == state.me) {
+                    square.style.background = "green";
+                  } else {
+                    square.style.background = "red";
+                  }
+                } else {
+                  square.style.background = "white";
+                }
               }
-            } else {
-              square.style.background = "white";
             }
-          }
-        }
 
         var display = {
           'other-player': 'none',
@@ -144,14 +276,14 @@
           'their-move': 'none',
           'you-won': 'none',
           'you-lost': 'none',
-          'board': 'block',
-          'this-game': 'block'
+          'board': 'block'
+          // 'this-game': 'block'
         };
 
         if (!state.userO || state.userO == '') {
           display['other-player'] = 'block';
           display['board'] = 'none';
-          display['this-game'] = 'none';
+          // display['this-game'] = 'none';
         } else if (state.winner == state.me) {
           display['you-won'] = 'block';
         } else if (state.winner != '') {
@@ -196,7 +328,8 @@
         if (state.winner != "") {
           return;
         }
-        for (i = 0; i < 9; i++) {
+
+        for (i = 0; i < 81; i++) {
           if (i == id  && isMyMove()) {
             if (state.board[i] = ' ') {
               color = 'lightBlue';
@@ -209,6 +342,7 @@
 
           document.getElementById(i).style['background'] = color;
         }
+
       }
 
       onOpened = function() {
@@ -243,7 +377,7 @@
       initialize = function() {
         openChannel();
         var i;
-        for (i = 0; i < 9; i++) {
+        for (i = 0; i < 81; i++) {
           var square = document.getElementById(i);
           square.onmouseover = new Function('highlightSquare(' + i + ')');
           square.onclick = new Function('moveInSquare(' + i + ')');
