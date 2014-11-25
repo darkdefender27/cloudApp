@@ -72,6 +72,7 @@ class GameUpdater():
             'userX': self.game.userX.user_id(),
             'userO': '' if not self.game.userO else self.game.userO.user_id(),
             'moveX': self.game.moveX,
+            'bigWin': self.game.big_win,
             'winner': self.game.winner,
             'winningBoard': self.game.winning_board
         }
